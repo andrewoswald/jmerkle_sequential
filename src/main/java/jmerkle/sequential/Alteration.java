@@ -17,8 +17,8 @@ package jmerkle.sequential;
 
 public class Alteration {
 	
-	public String key;
-	public Object value;
+	/*default*/ String key;
+	/*default*/ Object value;
 	
 	public Alteration(String key, Object value) {
 		this.key = key;
