@@ -15,12 +15,26 @@
  */
 package jmerkle.sequential;
 
+import java.io.Serializable;
+
+/**
+ * Encapsulates an identifiable value that is used to alter the
+ * contents of a JMerkle structure.  If the intent of the alteration
+ * is to <i>remove</i> a leaf from the tree, the Alteration's value
+ * should be null.  All alter operations are idempotent, therefore 
+ * deleting a value that does not exist has no effect and similarly,
+ * adding or updating an existing value to its current value also
+ * has no outward effect.
+ * 
+ * @author andrew oswald
+ *
+ */
 public class Alteration {
 	
 	/*default*/ String key;
-	/*default*/ Object value;
+	/*default*/ Serializable value;
 	
-	public Alteration(String key, Object value) {
+	public Alteration(String key, Serializable value) {
 		this.key = key;
 		this.value = value;
 	}
