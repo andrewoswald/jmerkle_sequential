@@ -84,10 +84,9 @@ public class Branch extends JMerkle {
 			}
 		}
 		
-		switch (children.size()) {
-		case 0:
+		if(children.isEmpty()) {
 			return null;
-		default:
+		} else {
 			int childBytes = 0;
 			for(JMerkle jMerkle : children.values()) {
 				childBytes += jMerkle.offset();

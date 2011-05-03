@@ -18,6 +18,7 @@ package jmerkle.sequential;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -28,12 +29,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public abstract class JMerkle {
+public abstract class JMerkle implements Serializable {
 
 	private static final long serialVersionUID = 7487888709693360107L;
 	
 	/*default*/ byte[] hashVal;
 	
+	/*
+	 * TODO: define why this is necessary.
+	 */
 	/*default*/ static class UserKeyWrapper {
 		public byte[] bytes;
 		
@@ -98,7 +102,7 @@ public abstract class JMerkle {
 	 * @param obj
 	 * @return
 	 */
-	/*default*/ static final byte[] hash(Object obj) {
+	/*default*/ static final byte[] hash(Serializable obj) {
 		byte[] bytes = JMerkle.getBytes(obj);
 		MessageDigest digest = null;
 		try {
@@ -109,7 +113,7 @@ public abstract class JMerkle {
 		return digest.digest(bytes);
 	}
 	
-	private static byte[] getBytes(Object obj) {
+	private static byte[] getBytes(Serializable obj) {
 		ByteArrayOutputStream bos = new ByteArrayOutputStream(); 
 		try {
 			ObjectOutputStream oos = new ObjectOutputStream(bos); 
