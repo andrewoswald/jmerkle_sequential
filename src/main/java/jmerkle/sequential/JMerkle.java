@@ -33,12 +33,12 @@ public abstract class JMerkle implements Serializable {
 
     private static final long serialVersionUID = 7487888709693360107L;
 
-    /* default */byte[] hashVal;
+    /*default*/ byte[] hashVal;
 
     /*
      * TODO: define why this is necessary.
      */
-    /* default */static class UserKeyWrapper {
+    /*default*/ static class UserKeyWrapper {
         public byte[] bytes;
 
         UserKeyWrapper(byte[] bytes) {
@@ -86,13 +86,13 @@ public abstract class JMerkle implements Serializable {
         return allKeys;
     }
 
-    /* default */abstract boolean isBranch();
+    /*default*/ abstract boolean isBranch();
 
-    /* default */abstract JMerkle alterInternal(int offset, List<Alteration> alterations);
+    /*default*/ abstract JMerkle alterInternal(int offset, List<Alteration> alterations);
 
-    /* default */abstract List<UserKeyWrapper> allKeysInternal();
+    /*default*/ abstract List<UserKeyWrapper> allKeysInternal();
 
-    /* default */abstract int offset();
+    /*default*/ abstract int offset();
 
     /**
      * This method returns a byte[] of size 20. <br/>
@@ -102,7 +102,7 @@ public abstract class JMerkle implements Serializable {
      * @param obj
      * @return
      */
-    /* default */static final byte[] hash(Serializable obj) {
+    /*default*/ static final byte[] hash(Serializable obj) {
         byte[] bytes = JMerkle.getBytes(obj);
         MessageDigest digest = null;
         try {

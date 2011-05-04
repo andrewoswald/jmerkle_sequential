@@ -138,7 +138,7 @@ public class Branch extends JMerkle {
      *         and all of the <code>Branch</code>'s children have been exhausted, 
      *         returns <code>null</code>.
      */
-    /* default */Boolean contains(Leaf leaf) {
+    /*default*/ Boolean contains(Leaf leaf) {
         // cycle through all the children:
         Collection<JMerkle> childValues = children.values();
         for (JMerkle jMerkle : childValues) {
