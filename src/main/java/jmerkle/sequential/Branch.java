@@ -21,7 +21,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
+import java.util.Map.Entry;
 
 public class Branch extends JMerkle {
 
@@ -48,9 +48,10 @@ public class Branch extends JMerkle {
                 byte offsetKey = JMerkle.hash(keyBytes)[offset];
 
                 if (children.containsKey(offsetKey)) {
-                    
-                    List<Alteration> collisionAlterations = collisions.get(offsetKey);
-                    
+
+                    List<Alteration> collisionAlterations = collisions
+                            .get(offsetKey);
+
                     if (collisionAlterations == null) {
                         collisionAlterations = new ArrayList<Alteration>();
                         collisions.put(offsetKey, collisionAlterations);
@@ -59,18 +60,21 @@ public class Branch extends JMerkle {
                 } else if (alteration.value != null) {
                     // we're in accordance w/ our balance rules...
                     // create and insert the new Leaf:
-                    Leaf leaf = new Leaf(keyBytes,JMerkle.hash(alteration.value));
+                    Leaf leaf = new Leaf(keyBytes,
+                            JMerkle.hash(alteration.value));
                     children.put(offsetKey, leaf);
                 }
             }
 
-            Set<Byte> collisionKeys = collisions.keySet();
-            for (Byte collisionKey : collisionKeys) {
-                
+            for (Entry<Byte, List<Alteration>> collisionEntry : collisions
+                    .entrySet()) {
+
+                Byte collisionKey = collisionEntry.getKey();
+
+                List<Alteration> pendingAlterations = collisionEntry.getValue();
+
                 JMerkle child = children.get(collisionKey);
-                
-                List<Alteration> pendingAlterations = collisions.get(collisionKey);
-                
+
                 if (child.isBranch()) {
                     child.alterInternal(offset + 1, pendingAlterations);
                 } else {
@@ -78,7 +82,8 @@ public class Branch extends JMerkle {
                     // an update to that leaf,
                     // 2) deletion of that leaf, or 3) conversion of that leaf
                     // into a branch:
-                    JMerkle result = child.alterInternal(offset + 1, pendingAlterations);
+                    JMerkle result = child.alterInternal(offset + 1,
+                            pendingAlterations);
                     if (result != null) {
                         // we don't care whether the leaf was just updated or
                         // converted:
@@ -123,6 +128,21 @@ public class Branch extends JMerkle {
         return true;
     }
 
+    /**
+     * Returns whether the provided <code>Leaf</code> is a child of this
+     * <code>Branch</code>. Recursively exhausts child <code>Branch</code>es,
+     * but short-circuits once a match has been found.
+     * 
+     * @param leaf a non-null <code>Leaf</code>.
+     * @return If a <code>Leaf</code> with an identical key is found while
+     *         traversing the <code>Branch</code>, the <code>Leaf</code>
+     *         parameter's hash value is compared to the <code>Branch</code>'s
+     *         <code>Leaf</code>'s hash value. <code>true</code> is returned if
+     *         the respective hash values are identical; <code>false</code> 
+     *         otherwise. If a <code>Leaf</code> of identical key is not found 
+     *         and all of the <code>Branch</code>'s children have been exhausted, 
+     *         returns <code>null</code>.
+     */
     /* default */Boolean contains(Leaf leaf) {
         // cycle through all the children:
         Collection<JMerkle> childValues = children.values();
