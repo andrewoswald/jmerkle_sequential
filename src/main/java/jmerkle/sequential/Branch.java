@@ -49,8 +49,7 @@ public class Branch extends JMerkle {
 
                 if (children.containsKey(offsetKey)) {
 
-                    List<Alteration> collisionAlterations = collisions
-                            .get(offsetKey);
+                    List<Alteration> collisionAlterations = collisions.get(offsetKey);
 
                     if (collisionAlterations == null) {
                         collisionAlterations = new ArrayList<Alteration>();
@@ -60,14 +59,12 @@ public class Branch extends JMerkle {
                 } else if (alteration.value != null) {
                     // we're in accordance w/ our balance rules...
                     // create and insert the new Leaf:
-                    Leaf leaf = new Leaf(keyBytes,
-                            JMerkle.hash(alteration.value));
+                    Leaf leaf = new Leaf(keyBytes, JMerkle.hash(alteration.value));
                     children.put(offsetKey, leaf);
                 }
             }
 
-            for (Entry<Byte, List<Alteration>> collisionEntry : collisions
-                    .entrySet()) {
+            for (Entry<Byte, List<Alteration>> collisionEntry : collisions.entrySet()) {
 
                 Byte collisionKey = collisionEntry.getKey();
 
@@ -78,19 +75,17 @@ public class Branch extends JMerkle {
                 if (child.isBranch()) {
                     child.alterInternal(offset + 1, pendingAlterations);
                 } else {
-                    // the alteration insert result on a leaf can result in 1)
-                    // an update to that leaf,
-                    // 2) deletion of that leaf, or 3) conversion of that leaf
-                    // into a branch:
-                    JMerkle result = child.alterInternal(offset + 1,
-                            pendingAlterations);
+                    // the alteration insert result on a leaf can result in 
+                    // 1) an update to that leaf,
+                    // 2) deletion of that leaf, or 
+                    // 3) conversion of that leaf into a branch:
+                    JMerkle result = child.alterInternal(offset + 1, pendingAlterations);
                     if (result != null) {
                         // we don't care whether the leaf was just updated or
                         // converted:
                         children.put(collisionKey, result);
                     } else {
-                        // if null, the leaf alteration was a 'delete' (isUpate
-                        // == false):
+                        // if null, the leaf alteration was a 'delete':
                         children.remove(collisionKey);
                     }
                 }
