@@ -34,11 +34,11 @@ import java.io.Serializable;
  */
 public class Alteration {
 	
-	/*default*/ String key;
-	/*default*/ Serializable value;
-	
-	public Alteration(String key, Serializable value) {
-		this.key = key;
-		this.value = value;
-	}
+    /*default*/ String key;
+    /*default*/ Serializable value;
+
+    public Alteration(String key, Serializable value) {
+        this.key = key;
+        this.value = value;
+    }
 }
