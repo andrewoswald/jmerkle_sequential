@@ -20,91 +20,94 @@ import java.util.Collections;
 import java.util.List;
 
 public class Leaf extends JMerkle {
-private static final long serialVersionUID = 7479498736319778107L;
-	
-	public byte[] userKey;
-	
-	public Leaf(){}
-	
-	/*default*/ Leaf(byte[] userKey, byte[] hashVal) {
-		this.hashVal = hashVal;
-		this.userKey = userKey;
-	}
-	
-	@Override
-	JMerkle alterInternal(int offset, List<Alteration> alterations) {
-		
-		JMerkle context = this;
-		
-		if(alterations != null) {
-			
-			int alterationsSize = alterations.size();
-			
-			for(int i=0; i<alterationsSize; i++) {
-				Alteration alteration = alterations.get(i);
-				
-				boolean isUpdate = alteration.value != null;
-				String key = alteration.key;
-				byte[] hashVal = JMerkle.hash(alteration.value);
-				
-				if(this.userKey == null) {
-					if(isUpdate) {
-						//new tree:
-						this.hashVal = JMerkle.hash(alteration.value);
-						this.userKey = key.getBytes();
-					}
-				} else {
-					if(Arrays.equals(this.userKey, key.getBytes())) {
-						//alteration to _this_ leaf:
-						this.hashVal = isUpdate ? hashVal : null;
-					} else {
-						//create a new Branch:
-						Branch branch = new Branch();
-						//put the initial leaf (this one):
-						byte offsetKey = JMerkle.hash(this.userKey)[offset];
-						branch.children.put(offsetKey, this);
-						//insert the remaining alterations
-						//and switch the context to the result:
-						context = branch.alterInternal(offset, alterations.subList(i, alterationsSize));
-						//inserting on the branch took care of everything; break out of the loop:
-						break;
-					}
-				}
-			}
-		}
-		
-		return context == null || context.hashVal == null ? null : context;
-	}
 
-	@Override
-	boolean isBranch() {
-		return false;
-	}
+    private static final long serialVersionUID = 7479498736319778107L;
 
-	@Override
-	List<UserKeyWrapper> allKeysInternal() {
-		if(this.userKey == null) {
-			return Collections.emptyList(); 
-		} else { 
-			return Collections.singletonList(new UserKeyWrapper(userKey));
-		}
-	}
-	
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-		    return true;
-		}
-		if (obj instanceof Leaf) {
-			Leaf thatLeaf = (Leaf)obj;
-			return Arrays.equals(userKey, thatLeaf.userKey) && Arrays.equals(hashVal, thatLeaf.hashVal);
-		}
-		return false;
-	}
-	
-	@Override
-	int offset() {
-		// type (1) + hashVal (20) + userKey offset (4) + userKey.length
-		return 25 + userKey.length;
-	}
+    public byte[] userKey;
+
+    public Leaf() {
+    }
+
+    /* default */Leaf(byte[] userKey, byte[] hashVal) {
+        this.hashVal = hashVal;
+        this.userKey = userKey;
+    }
+
+    @Override
+    JMerkle alterInternal(int offset, List<Alteration> alterations) {
+
+        JMerkle context = this;
+
+        if (alterations != null) {
+
+            int alterationsSize = alterations.size();
+
+            for (int i = 0; i < alterationsSize; i++) {
+                Alteration alteration = alterations.get(i);
+
+                boolean isUpdate = alteration.value != null;
+                String key = alteration.key;
+                byte[] alterationHashVal = JMerkle.hash(alteration.value);
+
+                if (this.userKey == null) {
+                    if (isUpdate) {
+                        // new tree:
+                        this.hashVal = JMerkle.hash(alteration.value);
+                        this.userKey = key.getBytes();
+                    }
+                } else {
+                    if (Arrays.equals(this.userKey, key.getBytes())) {
+                        // alteration to _this_ leaf:
+                        this.hashVal = isUpdate ? alterationHashVal : null;
+                    } else {
+                        // create a new Branch:
+                        Branch branch = new Branch();
+                        // put the initial leaf (this one):
+                        byte offsetKey = JMerkle.hash(this.userKey)[offset];
+                        branch.children.put(offsetKey, this);
+                        // insert the remaining alterations
+                        // and switch the context to the result:
+                        context = branch.alterInternal(offset, alterations.subList(i, alterationsSize));
+                        // inserting on the branch took care of everything;
+                        // break out of the loop:
+                        break;
+                    }
+                }
+            }
+        }
+
+        return context == null || context.hashVal == null ? null : context;
+    }
+
+    @Override
+    boolean isBranch() {
+        return false;
+    }
+
+    @Override
+    List<UserKeyWrapper> allKeysInternal() {
+        if (this.userKey == null) {
+            return Collections.emptyList();
+        } else {
+            return Collections.singletonList(new UserKeyWrapper(userKey));
+        }
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj instanceof Leaf) {
+            Leaf thatLeaf = (Leaf) obj;
+            return Arrays.equals(userKey, thatLeaf.userKey) && Arrays.equals(hashVal, thatLeaf.hashVal);
+        }
+        return false;
+    }
+
+    @Override
+    int offset() {
+        // type (1) + hashVal (20) + userKey offset (4) + userKey.length
+        return 25 + userKey.length;
+    }
 }
