@@ -31,8 +31,7 @@ public class Branch extends JMerkle {
 
     HashMap<Byte, JMerkle> children = new HashMap<Byte, JMerkle>();
 
-    /* default */Branch() {
-    }
+    /* default */Branch() {}
 
     @Override
     JMerkle alterInternal(int offset, List<Alteration> alterations) {
