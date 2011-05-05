@@ -37,13 +37,10 @@ public class Branch extends JMerkle {
     JMerkle alterInternal(int offset, List<Alteration> alterations) {
 
         if (alterations != null) {
-            int alterationsSize = alterations.size();
 
             Map<Byte, List<Alteration>> collisions = new HashMap<Byte, List<Alteration>>();
-
-            for (int i = 0; i < alterationsSize; i++) {
-                Alteration alteration = alterations.get(i);
-
+            
+            for(Alteration alteration : alterations) {
                 byte[] keyBytes = alteration.key.getBytes();
                 byte offsetKey = JMerkle.hash(keyBytes)[offset];
 
@@ -56,6 +53,7 @@ public class Branch extends JMerkle {
                         collisions.put(offsetKey, collisionAlterations);
                     }
                     collisionAlterations.add(alteration);
+                
                 } else if (alteration.value != null) {
                     // we're in accordance w/ our balance rules...
                     // create and insert the new Leaf:
