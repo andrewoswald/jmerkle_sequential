@@ -58,7 +58,7 @@ public class Branch extends JMerkle {
                 } else {
                     Serializable value = alteration.getValue();
                     if (value != null) {
-                     // we're in accordance w/ our balance rules...
+                        // we're in accordance w/ our balance rules...
                         // create and insert the new Leaf:
                         Leaf leaf = new Leaf(keyBytes, JMerkle.hash(value));
                         children.put(offsetKey, leaf);
