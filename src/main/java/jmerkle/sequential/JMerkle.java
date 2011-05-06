@@ -65,7 +65,7 @@ public abstract class JMerkle implements Serializable {
         return diff;
     }
 
-    public JMerkle alter(List<Alteration> alterations) {
+    public JMerkle alter(List<JMerkleAlterable> alterations) {
 
         JMerkle jMerkle = alterInternal(0, alterations);
 
@@ -88,7 +88,7 @@ public abstract class JMerkle implements Serializable {
 
     /*default*/ abstract boolean isBranch();
 
-    /*default*/ abstract JMerkle alterInternal(int offset, List<Alteration> alterations);
+    /*default*/ abstract JMerkle alterInternal(int offset, List<JMerkleAlterable> alterations);
 
     /*default*/ abstract List<UserKeyWrapper> allKeysInternal();
 

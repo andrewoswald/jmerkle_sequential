@@ -15,6 +15,7 @@
  */
 package jmerkle.sequential;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -34,39 +35,43 @@ public class Branch extends JMerkle {
     /*default*/ Branch() {}
 
     @Override
-    JMerkle alterInternal(int offset, List<Alteration> alterations) {
+    JMerkle alterInternal(int offset, List<JMerkleAlterable> alterations) {
 
         if (alterations != null) {
 
-            Map<Byte, List<Alteration>> collisions = new HashMap<Byte, List<Alteration>>();
+            Map<Byte, List<JMerkleAlterable>> collisions = new HashMap<Byte, List<JMerkleAlterable>>();
             
-            for(Alteration alteration : alterations) {
-                byte[] keyBytes = alteration.key.getBytes();
+            for(JMerkleAlterable alteration : alterations) {
+                byte[] keyBytes = alteration.getKey().getBytes();
                 byte offsetKey = JMerkle.hash(keyBytes)[offset];
 
                 if (children.containsKey(offsetKey)) {
 
-                    List<Alteration> collisionAlterations = collisions.get(offsetKey);
+                    List<JMerkleAlterable> collisionAlterations = collisions.get(offsetKey);
 
                     if (collisionAlterations == null) {
-                        collisionAlterations = new ArrayList<Alteration>();
+                        collisionAlterations = new ArrayList<JMerkleAlterable>();
                         collisions.put(offsetKey, collisionAlterations);
                     }
                     collisionAlterations.add(alteration);
                 
-                } else if (alteration.value != null) {
-                    // we're in accordance w/ our balance rules...
-                    // create and insert the new Leaf:
-                    Leaf leaf = new Leaf(keyBytes, JMerkle.hash(alteration.value));
-                    children.put(offsetKey, leaf);
+                } else {
+                    Serializable value = alteration.getValue();
+                    if (value != null) {
+                     // we're in accordance w/ our balance rules...
+                        // create and insert the new Leaf:
+                        Leaf leaf = new Leaf(keyBytes, JMerkle.hash(value));
+                        children.put(offsetKey, leaf);
+                    }
                 }
+                    
             }
 
-            for (Entry<Byte, List<Alteration>> collisionEntry : collisions.entrySet()) {
+            for (Entry<Byte, List<JMerkleAlterable>> collisionEntry : collisions.entrySet()) {
 
                 Byte collisionKey = collisionEntry.getKey();
 
-                List<Alteration> pendingAlterations = collisionEntry.getValue();
+                List<JMerkleAlterable> pendingAlterations = collisionEntry.getValue();
 
                 JMerkle child = children.get(collisionKey);
 

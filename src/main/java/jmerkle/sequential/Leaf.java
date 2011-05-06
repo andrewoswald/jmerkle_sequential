@@ -15,6 +15,7 @@
  */
 package jmerkle.sequential;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -33,7 +34,7 @@ public class Leaf extends JMerkle {
     }
 
     @Override
-    JMerkle alterInternal(int offset, List<Alteration> alterations) {
+    JMerkle alterInternal(int offset, List<JMerkleAlterable> alterations) {
 
         JMerkle context = this;
 
@@ -42,16 +43,17 @@ public class Leaf extends JMerkle {
             int alterationsSize = alterations.size();
 
             for (int i = 0; i < alterationsSize; i++) {
-                Alteration alteration = alterations.get(i);
+                JMerkleAlterable alteration = alterations.get(i);
 
-                boolean isUpdate = alteration.value != null;
-                String key = alteration.key;
-                byte[] alterationHashVal = JMerkle.hash(alteration.value);
+                Serializable value = alteration.getValue();
+                boolean isUpdate = value != null;
+                String key = alteration.getKey();
+                byte[] alterationHashVal = JMerkle.hash(value);
 
                 if (this.userKey == null) {
                     if (isUpdate) {
                         // new tree:
-                        this.hashVal = JMerkle.hash(alteration.value);
+                        this.hashVal = JMerkle.hash(value);
                         this.userKey = key.getBytes();
                     }
                 } else {
