@@ -15,16 +15,16 @@ import java.io.Serializable;
  * 
  */
 public interface JMerkleAlterable {
-    
+
     /**
-     * 
-     * @return
+     * @return String representing the identity of a <code>Leaf</code> within a
+     *         JMerkle structure.
      */
     abstract String getKey();
-    
+
     /**
-     * 
-     * @return
+     * @return Serializable <code>Leaf</code> value that the JMerkle structure
+     *         uses when comparing trees. Its contents get hashed into 20 bytes.
      */
     abstract Serializable getValue();
 }
