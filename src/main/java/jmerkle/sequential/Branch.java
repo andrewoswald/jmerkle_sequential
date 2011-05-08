@@ -143,8 +143,7 @@ public class Branch extends JMerkle {
      */
     /*default*/ Boolean contains(Leaf leaf) {
         // cycle through all the children:
-        Collection<JMerkle> childValues = children.values();
-        for (JMerkle jMerkle : childValues) {
+        for (JMerkle jMerkle : children.values()) {
             if (jMerkle.isBranch()) {
                 // if branch, rinse and repeat:
                 Boolean contains = ((Branch) jMerkle).contains(leaf);
