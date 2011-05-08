@@ -54,36 +54,18 @@ public abstract class JMerkle implements Serializable {
 
     public List<String> diff(JMerkle jMerkle) {
         List<UserKeyWrapper> internalDiff = diffInternal(jMerkle);
-
-        int internalDiffSize = internalDiff.size();
-
-        List<String> diff = new ArrayList<String>(internalDiffSize);
-
-        for (UserKeyWrapper ukw : internalDiff) {
-            diff.add(new String(ukw.bytes));
-        }
-
+        List<String> diff = unwrapKeys(internalDiff);
         return diff;
     }
 
     public JMerkle alter(List<JMerkleAlterable> alterations) {
-
         JMerkle jMerkle = alterInternal(0, alterations);
-
         return jMerkle;
     }
 
     public List<String> allKeys() {
         List<UserKeyWrapper> allKeysInternal = allKeysInternal();
-
-        int allKeysInternalSize = allKeysInternal.size();
-
-        List<String> allKeys = new ArrayList<String>(allKeysInternalSize);
-
-        for (UserKeyWrapper ukw : allKeysInternal) {
-            allKeys.add(new String(ukw.bytes));
-        }
-
+        List<String> allKeys = unwrapKeys(allKeysInternal);
         return allKeys;
     }
 
@@ -128,6 +110,15 @@ public abstract class JMerkle implements Serializable {
         }
         byte[] data = bos.toByteArray();
         return data;
+    }
+
+    private List<String> unwrapKeys(List<UserKeyWrapper> wrappedKeys) {
+        int wrappedKeysSize = wrappedKeys.size();
+        List<String> unwrappedKeys = new ArrayList<String>(wrappedKeysSize);
+        for(UserKeyWrapper ukw : wrappedKeys) {
+            unwrappedKeys.add(new String(ukw.bytes));
+        }
+        return unwrappedKeys;
     }
 
     private List<UserKeyWrapper> diffInternal(JMerkle that) {
