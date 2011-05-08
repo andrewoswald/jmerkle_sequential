@@ -36,7 +36,8 @@ public abstract class JMerkle implements Serializable {
     /*default*/ byte[] hashVal;
 
     /*
-     * TODO: define why this is necessary.
+     * Used simply for its equals method; specifically,
+     * utilizing <code>Arrays.equals(byte[] a, byte[] a2)</code>.
      */
     /*default*/ static class UserKeyWrapper {
         public byte[] bytes;
