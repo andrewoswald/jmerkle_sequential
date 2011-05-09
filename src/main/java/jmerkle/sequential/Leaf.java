@@ -46,20 +46,16 @@ public class Leaf extends JMerkle {
                 JMerkleAlterable alteration = alterations.get(i);
 
                 Serializable value = alteration.getValue();
-                boolean isUpdate = value != null;
                 String key = alteration.getKey();
-                byte[] alterationHashVal = JMerkle.hash(value);
 
                 if (this.userKey == null) {
-                    if (isUpdate) {
-                        // new tree:
-                        this.hashVal = JMerkle.hash(value);
-                        this.userKey = key.getBytes();
-                    }
+                    // new tree:
+                    this.hashVal = JMerkle.hash(value);
+                    this.userKey = key.getBytes();
                 } else {
                     if (Arrays.equals(this.userKey, key.getBytes())) {
                         // alteration to _this_ leaf:
-                        this.hashVal = isUpdate ? alterationHashVal : null;
+                        this.hashVal = JMerkle.hash(value);
                     } else {
                         // create a new Branch:
                         Branch branch = new Branch();
