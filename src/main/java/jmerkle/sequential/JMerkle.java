@@ -86,14 +86,18 @@ public abstract class JMerkle implements Serializable {
      * @return
      */
     /*default*/ static final byte[] hash(Serializable obj) {
-        byte[] bytes = JMerkle.getBytes(obj);
-        MessageDigest digest = null;
-        try {
-            digest = MessageDigest.getInstance("SHA-1");
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
+        byte[] hash = null;
+        if(obj != null) {
+            byte[] bytes = JMerkle.getBytes(obj);
+            MessageDigest digest = null;
+            try {
+                digest = MessageDigest.getInstance("SHA-1");
+            } catch (NoSuchAlgorithmException e) {
+                throw new RuntimeException(e);
+            }
+            hash = digest.digest(bytes);
         }
-        return digest.digest(bytes);
+        return hash;
     }
 
     private static byte[] getBytes(Serializable obj) {
