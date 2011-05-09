@@ -94,10 +94,18 @@ public class Branch extends JMerkle {
                 }
             }
         }
-
-        if (children.isEmpty()) {
+        
+        
+        switch (children.size()) {
+        case 0:
             return null;
-        } else {
+        case 1:{
+            // if it's a leaf, there's no longer a need for this branch.
+            JMerkle jMerkle = new ArrayList<JMerkle>(children.values()).get(0);
+            if(!jMerkle.isBranch())
+                return jMerkle;
+        }
+        default:
             int childBytes = 0;
             for (JMerkle jMerkle : children.values()) {
                 childBytes += jMerkle.offset();
