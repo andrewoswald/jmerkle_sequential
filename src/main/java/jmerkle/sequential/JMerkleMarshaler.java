@@ -21,9 +21,8 @@ import java.io.DataInput;
 import java.io.DataInputStream;
 import java.io.DataOutput;
 import java.io.DataOutputStream;
-import java.util.HashMap;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.Map.Entry;
+import java.util.TreeMap;
 
 public class JMerkleMarshaler {
 
@@ -121,15 +120,15 @@ public class JMerkleMarshaler {
         // next int is the branch's offset
         out.writeInt(branch.offset());
 
-        HashMap<Byte, JMerkle> branchChildren = branch.children;
-        // next short is the number of children this branch
+        TreeMap<Byte, JMerkle> branchChildren = branch.children;
+        // next short is the number of children in this branch
         out.writeShort(branchChildren.size());
-        Set<Byte> keys = new TreeSet<Byte>(branchChildren.keySet());
-        // for each of the children,
-        for (Byte key : keys) {
+        for(Entry<Byte, JMerkle> entry : branchChildren.entrySet()) {
+            Byte key = entry.getKey();
+            JMerkle child = entry.getValue();
             // next byte is its key:
             out.writeByte(key);
-            JMerkle child = branchChildren.get(key);
+            //JMerkle child = branchChildren.get(key);
             boolean childIsBranch = child.isBranch();
             // next boolean is the child's type:
             out.writeBoolean(childIsBranch);
