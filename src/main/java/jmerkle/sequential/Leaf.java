@@ -49,9 +49,11 @@ public class Leaf extends JMerkle {
                 String key = alteration.getKey();
 
                 if (this.userKey == null) {
-                    // new tree:
-                    this.hashVal = JMerkle.hash(value);
-                    this.userKey = key.getBytes();
+                    if(value != null) {
+                        // new tree:
+                        this.hashVal = JMerkle.hash(value);
+                        this.userKey = key.getBytes();
+                    }
                 } else {
                     if (Arrays.equals(this.userKey, key.getBytes())) {
                         // alteration to _this_ leaf:
