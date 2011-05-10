@@ -51,19 +51,62 @@ public abstract class JMerkle implements Serializable {
             return Arrays.equals(bytes, ((UserKeyWrapper) obj).bytes);
         }
     }
+    
+    /**
+     * 
+     * @param t1
+     * @param t2
+     * @return
+     */
+    public static List<String> diff(JMerkle t1, JMerkle t2) {
+        if(t1 != null) {
+            if(t2 != null) {
+                return t1.diff(t2);
+            } else {
+                return t1.allKeys();
+            }
+        } else {
+            if(t2 != null) {
+                return t2.allKeys();
+            } else {
+                return Collections.emptyList();
+            }
+        }
+    }
+    
+    /**
+     * 
+     * @param t1
+     * @return
+     */
+    public static List<String> allkeys(JMerkle t1) {
+        if(t1 != null) {
+            return t1.allKeys();
+        } else {
+            return Collections.emptyList();
+        }
+    }
+    
+    /**
+     * 
+     * @param t1
+     * @param alterations
+     * @return
+     */
+    public static JMerkle alter(JMerkle t1, List<JMerkleAlterable> alterations) {
+        if(t1 == null) {
+            t1 = new Leaf();
+        }
+        return t1.alterInternal(0, alterations);
+    }
 
-    public List<String> diff(JMerkle jMerkle) {
+    private List<String> diff(JMerkle jMerkle) {
         List<UserKeyWrapper> internalDiff = diffInternal(jMerkle);
         List<String> diff = unwrapKeys(internalDiff);
         return diff;
     }
 
-    public JMerkle alter(List<JMerkleAlterable> alterations) {
-        JMerkle jMerkle = alterInternal(0, alterations);
-        return jMerkle;
-    }
-
-    public List<String> allKeys() {
+    private List<String> allKeys() {
         List<UserKeyWrapper> allKeysInternal = allKeysInternal();
         List<String> allKeys = unwrapKeys(allKeysInternal);
         return allKeys;
