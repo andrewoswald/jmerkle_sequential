@@ -82,12 +82,7 @@ public class Branch extends JMerkle {
                     // 1) an update to that leaf,
                     // 2) deletion of that leaf, or 
                     // 3) conversion of that leaf into a branch:
-                    JMerkle result = child.alterInternal(offset + 1, pendingAlterations);
-                    if (result != null) {
-                        // we don't care whether the leaf was just updated or
-                        // converted:
-                        children.put(collisionKey, result);
-                    } else {
+                    if(child.alterInternal(offset + 1, pendingAlterations) == null) {
                         // if null, the leaf alteration was a 'delete':
                         children.remove(collisionKey);
                     }
@@ -96,18 +91,19 @@ public class Branch extends JMerkle {
         }
         
         
-        switch (children.size()) {
+        Collection<JMerkle> values = children.values();
+        switch (values.size()) {
         case 0:
             return null;
         case 1:{
             // if it's a leaf, there's no longer a need for this branch.
-            JMerkle jMerkle = new ArrayList<JMerkle>(children.values()).get(0);
+            JMerkle jMerkle = new ArrayList<JMerkle>(values).get(0);
             if(!jMerkle.isBranch())
                 return jMerkle;
         }
         default:
             int childBytes = 0;
-            for (JMerkle jMerkle : children.values()) {
+            for (JMerkle jMerkle : values) {
                 childBytes += jMerkle.offset();
             }
             this.offset = 27 + children.size() + childBytes;
