@@ -135,7 +135,7 @@ public class JMerkleMarshaler {
             // next byte[20] is the child's hashVal:
             out.write(child.hashVal);
             // toggle branch/leaf differences:
-            if (child.isBranch()) {
+            if (childIsBranch) {
                 marshalChildren(out, (Branch) child);
             } else {
                 marshalLeaf(out, (Leaf) child);
