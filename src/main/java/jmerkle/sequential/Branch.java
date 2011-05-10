@@ -23,6 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.TreeMap;
 
 public class Branch extends JMerkle {
 
@@ -30,7 +31,9 @@ public class Branch extends JMerkle {
 
     transient int offset;
 
-    HashMap<Byte, JMerkle> children = new HashMap<Byte, JMerkle>();
+    //hashVal will differ depending on key order; TreeMap is used
+    //in order to maintain idempotent consistency.
+    TreeMap<Byte, JMerkle> children = new TreeMap<Byte, JMerkle>();
 
     /*default*/ Branch() {}
 
