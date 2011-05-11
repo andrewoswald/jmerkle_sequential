@@ -1,9 +1,23 @@
 jmerkle_sequential
 ====================
 
-The jmerkle_sequential library offers an extremely simple api to build, compare, and inspect merkle tree structures.  In addition to these operations,
+The jmerkle_sequential library offers an extremely simple api to build, compare, and inspect Merkle tree structures.  In addition to these operations,
 jmerkle_sequential offers capability to marshal and unmarshal binary representations that can be consumed (or produced) in a technology agnostic
-manner (assuming consumers and producers understand the established binary protocol). 
+manner (assuming consumers and producers understand the established binary protocol).  <i>Sequential</i> is emphasized in the library's title because 
+there are obvious opportunities for utilizing concurrency when altering as well as navigating Merkle tree structures (or any tree structure, for that 
+matter).  Those opportunities shall be explored at some point in the future and perhaps via implementation languages other than Java.
+
+While the virtues of the Merkle tree data structure are beyond the scope of this readme, the reader is encouraged to partake in research of their own.
+
+Here is a very brief list of Merkle tree data structure usage:
+* <a href="http://www.allthingsdistributed.com/2007/10/amazons_dynamo.html">Amazon's Dynamo</a>
+* <a href="https://github.com/basho/luwak">Basho's Luwak</a>
+* <a href="http://wiki.apache.org/cassandra/AntiEntropy">Apache Cassandra</a>
+
+The (English) wikipedia entry:
+* <a href="http://en.wikipedia.org/wiki/Hash_tree">Hash_tree</a>
+
+Other interesting uses are limited only to one's imagination.
 
 Getting Started
 ---------------
@@ -38,7 +52,7 @@ The allkeys method produces a List&lt;String&gt; of t1's keys.
 ```java
 JMerkle.diff(JMerkle t1, JMerkle t2);
 ```
-The diff function produces a List&lt;String&gt; of keys that differ between the two trees.
+The diff function produces a List&lt;String&gt; of keys representing the values (leaves) that are different between the two trees.
 
 In addition to the above operations, the jmerkle_sequential library offers the capability to marshal and unmarshal JMerkle structures to and
 from the Java space.  Marshaling results in a byte[] that can be utilized by other languages so long as their implementation understands
