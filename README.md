@@ -7,12 +7,12 @@ manner (assuming consumers and producers understand the established binary proto
 there are obvious opportunities for utilizing concurrency when altering as well as navigating Merkle tree structures (or any tree structure, for that 
 matter).  Those opportunities shall be explored at some point in the future and perhaps via implementation languages other than Java.
 
-While the virtues of the Merkle tree data structure are beyond the scope of this readme, the reader is encouraged to partake in research of their own.
+While the virtues of the Merkle tree data structure itself are beyond the scope of this readme, the reader is encouraged to partake in research of their own.
 
 Here is a very brief list of Merkle tree data structure usage:
 <ul>
 <li/> <a href="http://www.allthingsdistributed.com/2007/10/amazons_dynamo.html">Amazon's Dynamo</a>
-<li/ <a href="https://github.com/basho/luwak">Basho's Luwak</a>
+<li/> <a href="https://github.com/basho/luwak">Basho's Luwak</a>
 <li/> <a href="http://wiki.apache.org/cassandra/AntiEntropy">Apache Cassandra</a>
 </ul>
 
