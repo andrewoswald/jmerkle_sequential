@@ -58,7 +58,7 @@ The diff function produces a List&lt;String&gt; of keys representing the values 
 
 In addition to the above operations, the jmerkle_sequential library offers the capability to marshal and unmarshal JMerkle structures to and
 from the Java space.  Marshaling results in a byte[] that can be utilized by other languages so long as their implementation understands
-the protocol (<a href="https://github.com/andrewoswald/merkle_parser" target="_blank">merkle_parser</a> provides an Erlang example that performs
+the protocol (for example, <a href="https://github.com/andrewoswald/merkle_parser" target="_blank">merkle_parser</a> provides an Erlang example that performs
 allkeys and diff operations on the raw binary).
 
 The marshal and unmarshal operations are each made available through public static methods on the JMerkleMarshaler class:
