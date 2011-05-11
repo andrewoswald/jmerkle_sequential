@@ -5,11 +5,11 @@ The jmerkle_sequential library offers an extremely simple api to build, compare,
 jmerkle_sequential offers capability to marshal and unmarshal binary representations that can be consumed (or produced) in a technology agnostic
 manner (assuming consumers and producers understand the established binary protocol).  <i>Sequential</i> is emphasized in the library's title because 
 there are obvious opportunities for utilizing concurrency when altering as well as navigating Merkle tree structures (or any tree structure, for that 
-matter).  Those opportunities shall be explored at some point in the future and perhaps via implementation languages other than Java.
+matter).  Those opportunities shall be explored at some point in the future and perhaps implemented in languages other than Java.
 
 While the virtues of the Merkle tree data structure itself are beyond the scope of this readme, the reader is encouraged to partake in research of their own.
 
-For exploratory purposes, here is a very brief list of Merkle tree data structure usage:
+For exploratory purposes, here is a very brief list of Merkle tree data structure usage (please contact me if I'm egregiously missing something):
 <ul>
 <li/> <a href="http://www.allthingsdistributed.com/2007/10/amazons_dynamo.html">Amazon's Dynamo</a>
 <li/> <a href="https://github.com/basho/luwak">Basho's Luwak</a>
