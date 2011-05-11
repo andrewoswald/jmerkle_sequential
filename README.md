@@ -11,9 +11,9 @@ While the virtues of the Merkle tree data structure itself are beyond the scope 
 
 For exploratory purposes, here is a very brief list of Merkle tree data structure usage (please contact me if I'm egregiously missing something):
 <ul>
-<li/> <a href="http://www.allthingsdistributed.com/2007/10/amazons_dynamo.html">Amazon's Dynamo</a>
-<li/> <a href="https://github.com/basho/luwak">Basho's Luwak</a>
-<li/> <a href="http://wiki.apache.org/cassandra/AntiEntropy">Apache Cassandra</a>
+<li/> <a href="http://www.allthingsdistributed.com/2007/10/amazons_dynamo.html" target="_blank">Amazon's Dynamo</a>
+<li/> <a href="https://github.com/basho/luwak" target="_blank">Basho's Luwak</a>
+<li/> <a href="http://wiki.apache.org/cassandra/AntiEntropy" target="_blank">Apache Cassandra</a>
 </ul>
 
 The (English) wikipedia entry:
