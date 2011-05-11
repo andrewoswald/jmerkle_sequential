@@ -10,7 +10,7 @@ Getting Started
 
 The jmerkle_sequential library currently has no dependencies, but makes use of apache maven to produce its jar.
 
-To build from source, assuming maven has been installed, simply invoke
+To build from source, assuming maven has been installed, from the directory where jmerkle_sequential's pom.xml is located, simply invoke
 
     mvn package
     
@@ -21,9 +21,9 @@ The build, compare, and inspect operations are each made available through publi
 
 1. Building a merkle tree is done via JMerkle.alter(JMerkle t1, List&lt;JMerkleAlterable&gt; alterations);  The alter method produces either an abstract JMerkle object or null (in the case that there are no leaves).
 
-2. Inspecting a structure's contents is done via JMerkle.allkeys(JMerkle t1);  The allkeys method produces a List&gt;String&lt; of t1's keys.
+2. Inspecting a structure's contents is done via JMerkle.allkeys(JMerkle t1);  The allkeys method produces a List&lt;String&gt; of t1's keys.
 
-3. Comparing two merkle tree structures is done via JMerkle.diff(JMerkle t1, JMerkle t2);  The diff function produces a List&gt;String&lt; of keys that differ between the two trees.
+3. Comparing two merkle tree structures is done via JMerkle.diff(JMerkle t1, JMerkle t2);  The diff function produces a List&lt;String&gt; of keys that differ between the two trees.
 
 In addition to the above operations, the jmerkle_sequential library offers the capability to marshal and unmarshal JMerkle structures to and
 from the Java space.  Marshaling results in a byte[] that can be utilized by other languages so long as their implementation understands
