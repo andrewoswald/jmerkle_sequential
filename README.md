@@ -19,11 +19,26 @@ Usage
 -----
 The build, compare, and inspect operations are each made available through public static methods on the JMerkle class:
 
-1. Building a merkle tree is done via JMerkle.alter(JMerkle t1, List&lt;JMerkleAlterable&gt; alterations);  The alter method produces either an abstract JMerkle object or null (in the case that there are no leaves).
+1. Building a merkle tree is done via 
 
-2. Inspecting a structure's contents is done via JMerkle.allkeys(JMerkle t1);  The allkeys method produces a List&lt;String&gt; of t1's keys.
+```java
+JMerkle.alter(JMerkle t1, List<JMerkleAlterable> alterations);
+```  
+The alter method produces either an abstract JMerkle object or null (in the case that there are no leaves).
 
-3. Comparing two merkle tree structures is done via JMerkle.diff(JMerkle t1, JMerkle t2);  The diff function produces a List&lt;String&gt; of keys that differ between the two trees.
+2. Inspecting a structure's contents is done via 
+
+```java
+JMerkle.allkeys(JMerkle t1);
+```
+The allkeys method produces a List&lt;String&gt; of t1's keys.
+
+3. Comparing two merkle tree structures is done via
+
+```java
+JMerkle.diff(JMerkle t1, JMerkle t2);
+```
+The diff function produces a List&lt;String&gt; of keys that differ between the two trees.
 
 In addition to the above operations, the jmerkle_sequential library offers the capability to marshal and unmarshal JMerkle structures to and
 from the Java space.  Marshaling results in a byte[] that can be utilized by other languages so long as their implementation understands
