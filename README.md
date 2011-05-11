@@ -19,12 +19,12 @@ Usage
 -----
 The build, compare, and inspect operations are each made available through public static methods on the JMerkle class:
 
-* Building a merkle tree is done via 
+* Building and altering a merkle tree is done via 
 
 ```java
 JMerkle.alter(JMerkle t1, List<JMerkleAlterable> alterations);
 ```  
-The alter method produces either an abstract JMerkle object or null (in the case that there are no leaves).
+In the case of creating a new structure, the <b>t1</b> parameter must be null.  The alter method produces either an abstract JMerkle object or null (in the case that there are no leaves).
 
 * Inspecting a structure's contents is done via 
 
