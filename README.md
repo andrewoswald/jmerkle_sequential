@@ -10,7 +10,8 @@ The jmerkle_sequential library currently has no dependencies, but makes use of a
 
 Assuming maven has been installed, simply invoke
 
-```mvn package``` 
+```mvn package
+```
 
 Usage
 -----
