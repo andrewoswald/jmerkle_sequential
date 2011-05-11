@@ -10,12 +10,14 @@ matter).  Those opportunities shall be explored at some point in the future and 
 While the virtues of the Merkle tree data structure are beyond the scope of this readme, the reader is encouraged to partake in research of their own.
 
 Here is a very brief list of Merkle tree data structure usage:
-* <a href="http://www.allthingsdistributed.com/2007/10/amazons_dynamo.html">Amazon's Dynamo</a>
-* <a href="https://github.com/basho/luwak">Basho's Luwak</a>
-* <a href="http://wiki.apache.org/cassandra/AntiEntropy">Apache Cassandra</a>
+<ul>
+<li/> <a href="http://www.allthingsdistributed.com/2007/10/amazons_dynamo.html">Amazon's Dynamo</a>
+<li/ <a href="https://github.com/basho/luwak">Basho's Luwak</a>
+<li/> <a href="http://wiki.apache.org/cassandra/AntiEntropy">Apache Cassandra</a>
+</ul>
 
 The (English) wikipedia entry:
-* <a href="http://en.wikipedia.org/wiki/Hash_tree">Hash_tree</a>
+<ul><li/> <a href="http://en.wikipedia.org/wiki/Hash_tree">Hash_tree</a></ul>
 
 Other interesting uses are limited only to one's imagination.
 
