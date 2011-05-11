@@ -17,7 +17,7 @@ Usage
 -----
 The build, compare, and inspect operations are each made available through public static methods on the JMerkle class:
 
-1. Building a merkle tree is done via JMerkle.alter(JMerkle t1, List<JMerkleAlterable> alterations);
+1. Building a merkle tree is done via JMerkle.alter(JMerkle t1, List&lt;JMerkleAlterable&gt; alterations);
 
 2. Inspecting a structure's contents is done via JMerkle.allkeys(JMerkle t1);
 
