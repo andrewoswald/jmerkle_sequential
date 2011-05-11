@@ -9,7 +9,7 @@ matter).  Those opportunities shall be explored at some point in the future and 
 
 While the virtues of the Merkle tree data structure itself are beyond the scope of this readme, the reader is encouraged to partake in research of their own.
 
-Here is a very brief list of Merkle tree data structure usage:
+For exploratory purposes, here is a very brief list of Merkle tree data structure usage:
 <ul>
 <li/> <a href="http://www.allthingsdistributed.com/2007/10/amazons_dynamo.html">Amazon's Dynamo</a>
 <li/> <a href="https://github.com/basho/luwak">Basho's Luwak</a>
