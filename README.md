@@ -19,21 +19,21 @@ Usage
 -----
 The build, compare, and inspect operations are each made available through public static methods on the JMerkle class:
 
-1. Building a merkle tree is done via 
+* Building a merkle tree is done via 
 
 ```java
 JMerkle.alter(JMerkle t1, List<JMerkleAlterable> alterations);
 ```  
 The alter method produces either an abstract JMerkle object or null (in the case that there are no leaves).
 
-2. Inspecting a structure's contents is done via 
+* Inspecting a structure's contents is done via 
 
 ```java
 JMerkle.allkeys(JMerkle t1);
 ```
 The allkeys method produces a List&lt;String&gt; of t1's keys.
 
-3. Comparing two merkle tree structures is done via
+* Comparing two merkle tree structures is done via
 
 ```java
 JMerkle.diff(JMerkle t1, JMerkle t2);
@@ -46,9 +46,19 @@ the protocol (https://github.com/andrewoswald/merkle_parser provides an Erlang e
 
 The marshal and unmarshal operations are each made available through public static methods on the JMerkleMarshaler class:
 
-1. Marshaling a JMerkle is done via JMerkleMarshaler.marshal(JMerkle t1);  The marshal method produces a byte[].
+* Marshaling a JMerkle is done via
+ 
+```java
+JMerkleMarshaler.marshal(JMerkle t1);
+```
+The marshal method produces a byte[].
 
-2. Unmarshaling a marshaled value (originally from JMerkleMarshaler or elsewhere, assuming proper implementation) is done via JMerkleMarshaler.unmarshal(byte[] treeBytes);  The unmarshal method produces an abstract JMerkle object.
+* Unmarshaling a marshaled value (originally from JMerkleMarshaler or elsewhere, assuming proper implementation) is done via 
+
+```java
+JMerkleMarshaler.unmarshal(byte[] treeBytes);
+```
+The unmarshal method produces an abstract JMerkle object.
 
 Examples
 --------
