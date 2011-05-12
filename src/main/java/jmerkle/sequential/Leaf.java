@@ -26,7 +26,7 @@ public class Leaf extends JMerkle {
 
     public byte[] userKey;
 
-    public Leaf() {}
+    /*default*/ Leaf() {}
 
     /*default*/ Leaf(byte[] userKey, byte[] hashVal) {
         this.hashVal = hashVal;
