@@ -131,7 +131,7 @@ public class HelloJMerkle {
         Widget widget4 = new Widget("widget4", null);
         
         //batch up the alterations:
-        List<JMerkleAlterable> alterations = new ArrayList<JMerkleAlterable>(2);
+        List<JMerkleAlterable> alterations = new ArrayList<JMerkleAlterable>(3);
         alterations.add(fancyWidget);
         alterations.add(widget2);
         alterations.add(widget4);
