@@ -53,10 +53,8 @@ public abstract class JMerkle implements Serializable {
     }
     
     /**
-     * 
-     * @param t1
-     * @param t2
-     * @return
+     * Provides the unique leaves between the two JMerkle parameters.
+     * Either or both of the values may actually be null.
      */
     public static List<String> diff(JMerkle t1, JMerkle t2) {
         if(t1 != null) {
@@ -75,9 +73,9 @@ public abstract class JMerkle implements Serializable {
     }
     
     /**
-     * 
-     * @param t1
-     * @return
+     * Provides all the leaves on the provided JMerkle.
+     * The parameter may be null, in which case, the
+     * empty list is returned.
      */
     public static List<String> allkeys(JMerkle t1) {
         if(t1 != null) {
@@ -88,10 +86,9 @@ public abstract class JMerkle implements Serializable {
     }
     
     /**
-     * 
-     * @param t1
-     * @param alterations
-     * @return
+     * Alters the leaf values of the provided JMerkle using the provided
+     * list of JMerkleAlterable values.  If the t1 parameter is null,
+     * creates a new JMerkle and applies the alterations against it.
      */
     public static JMerkle alter(JMerkle t1, List<JMerkleAlterable> alterations) {
         if(t1 == null) {
