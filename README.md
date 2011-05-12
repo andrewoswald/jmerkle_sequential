@@ -120,7 +120,7 @@ public class HelloJMerkle {
         System.out.println("mobile device needs bootstrap data for the following inventory Widgets:");
         System.out.println(allkeysBootstrap);
         
-        //time passes, the mobile device goes offline... meanwhile the inventory changes w/ two updates:
+        //time passes, the mobile device goes offline... meanwhile the inventory changes w/ three updates:
         //a fancy new Widget:
         Widget fancyWidget = new Widget("fancy!", 99);
         
