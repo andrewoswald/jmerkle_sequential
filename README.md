@@ -79,3 +79,120 @@ The unmarshal method produces an abstract JMerkle object.
 
 Examples
 --------
+
+Here's a rudimentary example of using Merkle tree comparisons to reconcile data on a mobile device to that of a central server:
+
+```java
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import jmerkle.sequential.JMerkle;
+import jmerkle.sequential.JMerkleAlterable;
+import jmerkle.sequential.JMerkleMarshaler;
+
+
+/**
+ * Shows a simple example of how a mobile device might sync its
+ * data with a central datastore through the use of Merkle tree
+ * comparisons.
+ */
+public class HelloJMerkle {
+    
+    public static void main(String[] args) throws Exception {
+        
+        //create the initial JMerkle structure, representative of an inventory:
+        List<JMerkleAlterable> initialInventoryAlterations = initialInventory();
+        
+        JMerkle initialInventoryTree = JMerkle.alter(null, initialInventoryAlterations);
+        
+        //mimic storage of the initialInventoryTree by marshaling it:
+        byte[] marshaledInitialInventory = JMerkleMarshaler.marshal(initialInventoryTree);
+        
+        //mimic retrieval of the initialInventoryTree by unmarshaling the stored value:
+        JMerkle unmarshaledInitialInventory = JMerkleMarshaler.unmarshal(marshaledInitialInventory);
+        
+        //client requests a bootstrap sync with the central data server; this is done
+        //either by getting all the keys on the current inventory or by diff'ing an empty
+        //(null) value to the current inventory.  we'll use the allkeys method:
+        List<String> allkeysBootstrap = JMerkle.allkeys(unmarshaledInitialInventory);
+        
+        System.out.println("mobile device needs bootstrap data for the following inventory Widgets:");
+        System.out.println(allkeysBootstrap);
+        
+        //time passes, the mobile device goes offline... meanwhile the inventory changes w/ two updates:
+        //a fancy new Widget:
+        Widget fancyWidget = new Widget("fancy!", 99);
+        
+        //sold 1 widget2:
+        Widget widget2 = new Widget("widget2", 2);
+        
+        //and all widget4's were sold:
+        Widget widget4 = new Widget("widget4", null);
+        
+        //batch up the alterations:
+        List<JMerkleAlterable> alterations = new ArrayList<JMerkleAlterable>(2);
+        alterations.add(fancyWidget);
+        alterations.add(widget2);
+        alterations.add(widget4);
+        
+        //and merge them into the initialInventoryTree: 
+        JMerkle alteredInventoryTree = JMerkle.alter(initialInventoryTree, alterations);
+        
+        System.out.println("after selling all of the widget4's, 1 widget2, and adding 99 fancy! widgets, the current inventory consists of:");
+        System.out.println(JMerkle.allkeys(alteredInventoryTree));
+        
+        //the mobile device comes back online, requests an update to sync its data... this likely wouldn't involve
+        //passing the entire JMerkle structure, only a minimal amount of data to identify the tree used when the
+        //mobile device was bootstrapped:
+        List<String> diff = JMerkle.diff(unmarshaledInitialInventory, alteredInventoryTree);
+        
+        System.out.println("mobile device needs to sync only the following values to be up to date on ALL widgets and their counts:");
+        System.out.println(diff); //notice, the device will be instructed that widget4 is no longer in stock.
+        
+        //etc., etc.        
+    }
+    
+    private static List<JMerkleAlterable> initialInventory(){
+        List<JMerkleAlterable> initialInventory = new ArrayList<JMerkleAlterable>(5);
+        for(int i=0; i<5; i++) {
+            initialInventory.add(new Widget("widget"+i, i+1));
+        }
+        return initialInventory;
+    }
+    
+    /**
+     * Barebones JMerkleAlterable implementation.
+     */
+    private static class Widget implements JMerkleAlterable {
+        
+        private String productId;
+        private Integer count;
+        
+        public Widget(String productId, Integer count) {
+            this.productId = productId;
+            this.count = count;
+        }
+        
+        @Override
+        public String getKey() {
+            return productId;
+        }
+
+        @Override
+        public Serializable getValue() {
+            return count;
+        }
+    }
+}
+```
+
+The output from the System.out.println calls:
+```
+mobile device needs bootstrap data for the following inventory Widgets:
+[widget0, widget3, widget1, widget2, widget4]
+after selling all of the widget4's, 1 widget2, and adding 99 fancy! widgets, the current inventory consists of:
+[widget0, widget3, fancy!, widget1, widget2]
+mobile device needs to sync only the following values to be up to date on ALL widgets and their counts:
+[widget2, widget4, fancy!]
+```
