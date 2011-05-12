@@ -188,11 +188,9 @@ public class HelloJMerkle {
 ```
 
 The output from the System.out.println calls:
-```
-mobile device needs bootstrap data for the following inventory Widgets:
-[widget0, widget3, widget1, widget2, widget4]
-after selling all of the widget4's, 1 widget2, and adding 99 fancy! widgets, the current inventory consists of:
-[widget0, widget3, fancy!, widget1, widget2]
-mobile device needs to sync only the following values to be up to date on ALL widgets and their counts:
-[widget2, widget4, fancy!]
-```
+    mobile device needs bootstrap data for the following inventory Widgets:
+    [widget0, widget3, widget1, widget2, widget4]
+    after selling all of the widget4's, 1 widget2, and adding 99 fancy! widgets, the current inventory consists of:
+    [widget0, widget3, fancy!, widget1, widget2]
+    mobile device needs to sync only the following values to be up to date on ALL widgets and their counts:
+    [widget2, widget4, fancy!]
