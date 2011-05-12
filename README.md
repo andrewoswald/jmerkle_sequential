@@ -193,5 +193,5 @@ mobile device needs bootstrap data for the following inventory Widgets:<br/>
 [widget0, widget3, widget1, widget2, widget4]<br/>
 after selling all of the widget4's, 1 widget2, and adding 99 fancy! widgets, the current inventory consists of:<br/>
 [widget0, widget3, fancy!, widget1, widget2]<br/>
-mobile device needs to sync only the following values to be up to date on ALL widgets and their counts:<br/>
+mobile device needs to sync the values of only the following productIds to be up to date on ALL widgets and their counts:<br/>
 [widget2, widget4, fancy!]
