@@ -17,7 +17,7 @@ For exploratory purposes, here is a very brief list of Merkle tree data structur
 </ul>
 
 The (English) wikipedia entry:
-<ul><li/> <a href="http://en.wikipedia.org/wiki/Hash_tree">Hash_tree</a></ul>
+<ul><li/> <a href="http://en.wikipedia.org/wiki/Hash_tree" target="_blank">Hash_tree</a></ul>
 
 Other interesting uses are limited only to one's imagination.
 
@@ -121,8 +121,8 @@ public class HelloJMerkle {
         System.out.println(allkeysBootstrap);
         
         //time passes, the mobile device goes offline... meanwhile the inventory changes w/ three updates:
-        //a fancy new Widget:
-        Widget fancyWidget = new Widget("fancy!", 99);
+        //a brand new Widget:
+        Widget brandNewWidget = new Widget("brand new!", 99);
         
         //sold 1 widget2:
         Widget widget2 = new Widget("widget2", 2);
@@ -132,14 +132,14 @@ public class HelloJMerkle {
         
         //batch up the alterations:
         List<JMerkleAlterable> alterations = new ArrayList<JMerkleAlterable>(3);
-        alterations.add(fancyWidget);
+        alterations.add(brandNewWidget);
         alterations.add(widget2);
         alterations.add(widget4);
         
         //and merge them into the initialInventoryTree: 
         JMerkle alteredInventoryTree = JMerkle.alter(initialInventoryTree, alterations);
         
-        System.out.println("after selling all of the widget4's, 1 widget2, and adding 99 fancy! widgets, the current inventory consists of:");
+        System.out.println("after selling all of the widget4's, 1 widget2, and adding 99 \"brand new!\" widgets, the current inventory consists of:");
         System.out.println(JMerkle.allkeys(alteredInventoryTree));
         
         //the mobile device comes back online, requests an update to sync its data... this likely wouldn't involve
@@ -191,7 +191,7 @@ The output from the System.out.println calls:
 
 mobile device needs bootstrap data for the following inventory Widgets:<br/>
 [widget0, widget3, widget1, widget2, widget4]<br/>
-after selling all of the widget4's, 1 widget2, and adding 99 fancy! widgets, the current inventory consists of:<br/>
-[widget0, widget3, fancy!, widget1, widget2]<br/>
-mobile device needs to sync the values of only the following productIds to be up to date on ALL widgets and their counts:<br/>
-[widget2, widget4, fancy!]
+after selling all of the widget4's, 1 widget2, and adding 99 "brand new!" widgets, the current inventory consists of:<br/>
+[widget0, widget3, widget1, widget2, brand new!]<br/>
+mobile device needs to sync only the following values to be up to date on ALL widgets and their counts:<br/>
+[widget2, widget4, brand new!]
