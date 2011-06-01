@@ -149,8 +149,8 @@ public abstract class JMerkle implements Serializable {
             oos.close();
             bos.close();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            // nothing recoverable; throw a runtime exception:
+            throw new RuntimeException(e);
         }
         byte[] data = bos.toByteArray();
         return data;
