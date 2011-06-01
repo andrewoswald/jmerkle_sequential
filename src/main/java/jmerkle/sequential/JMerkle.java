@@ -45,10 +45,25 @@ public abstract class JMerkle implements Serializable {
         UserKeyWrapper(byte[] bytes) {
             this.bytes = bytes;
         }
-
+        
+        @Override
+        public int hashCode() {
+            if(bytes == null) {
+                return 0;
+            } else {
+                return Arrays.hashCode(bytes);
+            }
+        }
+        
         @Override
         public boolean equals(Object obj) {
-            return Arrays.equals(bytes, ((UserKeyWrapper) obj).bytes);
+            if(this == obj) {
+                return true;
+            }
+            if(obj instanceof UserKeyWrapper) {
+                return Arrays.equals(bytes, ((UserKeyWrapper) obj).bytes);
+            }
+            return false;
         }
     }
     

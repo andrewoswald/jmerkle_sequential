@@ -33,7 +33,10 @@ public class JMerkleMarshaler {
         boolean isBranch = dis.readBoolean();
         // get the uppermost node's hashVal:
         byte[] hashVal = new byte[20];
-        dis.read(hashVal);
+        int bufferBytesRead = dis.read(hashVal);
+        
+        if(bufferBytesRead != 20)
+            throw new IllegalStateException("Marshaled JMerkle binary does not contain a 20 byte hash and is therefore corrupt.");
 
         JMerkle jMerkle = null;
 

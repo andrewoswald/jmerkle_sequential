@@ -166,7 +166,7 @@ public class Branch extends JMerkle {
                 }
             }
         }
-        return null;
+        return null; // explicit null to facilitate short-circuiting logic.
     }
 
     @Override

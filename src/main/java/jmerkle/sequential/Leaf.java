@@ -91,6 +91,11 @@ public class Leaf extends JMerkle {
             return Collections.singletonList(new UserKeyWrapper(userKey));
         }
     }
+    
+    @Override
+    public int hashCode() {
+        return (Arrays.hashCode(userKey) + Arrays.hashCode(hashVal));
+    }
 
     @Override
     public boolean equals(Object obj) {
