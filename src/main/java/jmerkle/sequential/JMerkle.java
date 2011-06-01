@@ -48,11 +48,7 @@ public abstract class JMerkle implements Serializable {
         
         @Override
         public int hashCode() {
-            if(bytes == null) {
-                return 0;
-            } else {
-                return Arrays.hashCode(bytes);
-            }
+            return Arrays.hashCode(bytes);
         }
         
         @Override
