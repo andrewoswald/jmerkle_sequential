@@ -1,7 +1,7 @@
 jmerkle_sequential
 ====================
 
-The jmerkle_sequential library offers an extremely simple api to build, compare, and inspect Merkle tree structures.  In addition to these operations,
+The jmerkle_sequential library offers an extremely simple api to build, compare, and inspect Merkle tree data structures.  In addition to these operations,
 jmerkle_sequential offers capability to marshal and unmarshal binary representations that can be consumed (or produced) in a technology agnostic
 manner (assuming consumers and producers understand the established binary protocol).  <i>Sequential</i> is emphasized in the library's title because 
 there are obvious opportunities for utilizing concurrency when altering as well as navigating Merkle tree structures (or any tree structure, for that 
