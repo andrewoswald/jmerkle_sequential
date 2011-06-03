@@ -83,6 +83,7 @@ Examples
 Here's a rudimentary example of using Merkle tree comparisons to reconcile data on a mobile device to that of a central server:
 
 ```java
+import java.io.FileOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -99,6 +100,8 @@ import jmerkle.sequential.JMerkleMarshaler;
  */
 public class HelloJMerkle {
     
+    private static final String TMP_DIR = System.getProperty("java.io.tmpdir");
+    
     public static void main(String[] args) throws Exception {
         
         //create the initial JMerkle structure, representative of an inventory:
@@ -108,6 +111,13 @@ public class HelloJMerkle {
         
         //mimic storage of the initialInventoryTree by marshaling it:
         byte[] marshaledInitialInventory = JMerkleMarshaler.marshal(initialInventoryTree);
+        
+        ////////////////////////////////////////////////////////////////////
+        //uncomment below to store the marshaled "initial inventory" tree to 
+        //the java.io.tmpdir (to try merkle_parser, etc):
+        //FileOutputStream fos1 = new FileOutputStream(TMP_DIR + "/InitialInventoryTree.out");
+        //fos1.write(marshaledInitialInventory);
+        ////////////////////////////////////////////////////////////////////
         
         //mimic retrieval of the initialInventoryTree by unmarshaling the stored value:
         JMerkle unmarshaledInitialInventory = JMerkleMarshaler.unmarshal(marshaledInitialInventory);
@@ -139,6 +149,13 @@ public class HelloJMerkle {
         //and merge them into the initialInventoryTree: 
         JMerkle alteredInventoryTree = JMerkle.alter(initialInventoryTree, alterations);
         
+        ////////////////////////////////////////////////////////////////////
+        //uncomment below to store the marshaled "altered inventory" tree to
+        //the java.io.tmpdir (to try merkle_parser, etc):
+        //FileOutputStream fos2 = new FileOutputStream(TMP_DIR + "/AlteredInventoryTree.out");
+        //fos2.write(JMerkleMarshaler.marshal(alteredInventoryTree));
+        ////////////////////////////////////////////////////////////////////
+        
         System.out.println("after selling all of the widget4's, 1 widget2, and adding 99 \"brand new!\" widgets, the current inventory consists of:");
         System.out.println(JMerkle.allkeys(alteredInventoryTree));
         
@@ -150,7 +167,7 @@ public class HelloJMerkle {
         System.out.println("mobile device needs to sync only the following values to be up to date on ALL widgets and their counts:");
         System.out.println(diff); //notice, the device will be instructed that widget4 is no longer in stock.
         
-        //etc., etc.        
+        //etc., etc.
     }
     
     private static List<JMerkleAlterable> initialInventory(){
